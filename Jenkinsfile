@@ -33,7 +33,7 @@ pipeline {
                     curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
                     chmod u+x ./kubectl
                     export KUBECONFIG=$(mktemp)
-                    ./kubectl config set-cluster default --server=http://192.168.100.69:6443 --insecure-skip-tls-verify=true
+                    ./kubectl config set-cluster default --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true
                     ./kubectl config set-credentials jenkins --token=${KUBE_TOKEN}
                     ./kubectl config set-context default --cluster=default --user=jenkins --namespace=default
                     ./kubectl config use-context default
