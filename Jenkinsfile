@@ -5,7 +5,7 @@ pipeline {
         stage('Git Cloning') {
             steps {
                 echo 'Cloning git repo'
-                git url: 'https://github.com/hakanbayraktar/flask-monitoring.git',  branch: 'main'
+                git url: 'https://github.com/Sciffleaf/flask-monitoring.git',  branch: 'main'
             }
         }
         stage('Build Docker Image') {
@@ -33,9 +33,9 @@ pipeline {
                     curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
                     chmod u+x ./kubectl
                     export KUBECONFIG=$(mktemp)
-                    ./kubectl config set-cluster do-fra1-argocd --server=https://85a67b80-af88-4186-975e-f43098efa0d4.k8s.ondigitalocean.com --insecure-skip-tls-verify=true
+                    ./kubectl config set-cluster default --server=http://127.0.0.1:6443 --insecure-skip-tls-verify=true
                     ./kubectl config set-credentials jenkins --token=${KUBE_TOKEN}
-                    ./kubectl config set-context default --cluster=do-fra1-argocd --user=jenkins --namespace=default
+                    ./kubectl config set-context default --cluster=default --user=jenkins --namespace=default
                     ./kubectl config use-context default
                     ./kubectl get nodes
                     ./kubectl apply -f service.yaml
